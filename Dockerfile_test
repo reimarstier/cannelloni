@@ -1,0 +1,32 @@
+ARG DOCKCROSS_IMAGE=linux-armv6-lts
+ARG DOCKCROSS_VERSION=latest
+
+FROM dockcross/$DOCKCROSS_IMAGE:$DOCKCROSS_VERSION
+ARG VERSION=1.1.0
+ARG HASH=0dcb9277b21f916f5646574b9b2229d3b8e97d5e99b935a4d0b7509a5f0ccdcd
+ARG DOCKCROSS_IMAGE=linux-armv6-lts
+ARG DOCKCROSS_VERSION=latest
+
+RUN apt update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    ca-certificates wget build-essential cmake lksctp-tools
+
+WORKDIR /tmp/libsctp
+ENV LIBSCTP_VERSION=1.0.19
+RUN wget https://github.com/sctp/lksctp-tools/archive/refs/tags/v$LIBSCTP_VERSION.tar.gz -O libsctp-$LIBSCTP_VERSION.tar.gz
+RUN tar --strip-components=1 -xvf libsctp-$LIBSCTP_VERSION.tar.gz
+RUN echo
+RUN ./bootstrap
+RUN ./configure --host armv7l-unknown-linux-gnueabihf
+RUN make
+RUN find . -name "libsctp*"
+RUN find . -name "sctp.h"
+
+
+RUN mkdir /tmp/cannelloni
+WORKDIR /tmp/cannelloni
+RUN wget https://github.com/mguentner/cannelloni/archive/refs/tags/v$VERSION.tar.gz -O cannelloni-$VERSION.tar.gz
+RUN echo "$HASH cannelloni-$VERSION.tar.gz" | sha256sum --check --status
+RUN tar --strip-components=1 -xvf cannelloni-$VERSION.tar.gz
+
+# Document build metadata
+RUN echo "Built with dockcross/$DOCKCROSS_IMAGE:$DOCKCROSS_VERSION\n" | tee -a /tmp/cannelloni/build-metadata.txt

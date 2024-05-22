@@ -18,12 +18,13 @@ DEFAULT_HASH = "0dcb9277b21f916f5646574b9b2229d3b8e97d5e99b935a4d0b7509a5f0ccdcd
 # Dockcross image names: https://github.com/dockcross/dockcross?tab=readme-ov-file#summary-cross-compilers
 # Debian architectures: https://wiki.debian.org/SupportedArchitectures
 BUILD_TARGETS = {
-    "linux-arm64": BuildMetadata(debian_architecture="arm64", dockcross_image="linux-arm64", dockcross_version="20240418-88c04a4"),
     "linux-x64": BuildMetadata(debian_architecture="amd64", dockcross_image="linux-x64", dockcross_version="20240418-88c04a4"),
-    "linux-armv7": BuildMetadata(debian_architecture="armhf", dockcross_image="linux-armv7", dockcross_version="20240418-88c04a4"),
-    "linux-armv7-lts": BuildMetadata(debian_architecture="armhf", dockcross_image="linux-armv7-lts", dockcross_version="20240418-88c04a4"),
     "linux-armv6": BuildMetadata(debian_architecture="armhf", dockcross_image="linux-armv6", dockcross_version="20240418-88c04a4"),
     "linux-armv6-lts": BuildMetadata(debian_architecture="armhf", dockcross_image="linux-armv6-lts", dockcross_version="20240418-88c04a4"),
+    "linux-armv7": BuildMetadata(debian_architecture="armhf", dockcross_image="linux-armv7", dockcross_version="20240418-88c04a4"),
+    "linux-armv7-lts": BuildMetadata(debian_architecture="armhf", dockcross_image="linux-armv7-lts", dockcross_version="20240418-88c04a4"),
+    "linux-arm64": BuildMetadata(debian_architecture="arm64", dockcross_image="linux-arm64", dockcross_version="20240418-88c04a4"),
+    "linux-arm64-lts": BuildMetadata(debian_architecture="arm64", dockcross_image="linux-arm64-lts", dockcross_version="20240418-88c04a4"),
 }
 
 
